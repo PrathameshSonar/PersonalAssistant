@@ -5,7 +5,7 @@ def list_events():
    service = get_calendar_service()
    # Call the Calendar API
    now = datetime.datetime.utcnow().isoformat() + 'Z' # 'Z' indicates UTC time
-   print('Getting List 0 10 events')
+   print('Getting List 0 to 10 events')
    events_result = service.events().list(
        calendarId='primary', timeMin=now,
        maxResults=10, singleEvents=True,
@@ -17,7 +17,13 @@ def list_events():
    for event in events:
        start = event['start'].get('dateTime', event['start'].get('date'))
        print(start, event['summary'])
-       
+       print(event.get('id'))
+       if start == 2020-10-19:
+          print('badiya')
+       else:
+          print('are ky')
+
+   
 
    return events
 

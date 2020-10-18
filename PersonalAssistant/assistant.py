@@ -12,6 +12,7 @@ from gtts import gTTS
 from send_mail import send_mail
 from inbox import get_inbox
 from list_events import list_events
+from create_event import create_event
 
 
 def speak(audioString):
@@ -85,6 +86,27 @@ def jarvis(data):
     if "check for any new mail" in data:
         new_mail = get_inbox()
         speak('you have mail from ' + new_mail)
+
+    if "schedule meeting" in data:
+        speak('Enter date in DD/MM/YYYY format')
+        dt_string = input('\nDate (DD/MM/YYYY): ')            
+        
+        speak('Enter time in HH:MM format')
+        t = input('\nHH:MM : ')
+
+        dt_string = dt_string + ' ' + t
+        dt = datetime.datetime.strptime(dt_string,"%d/%m/%Y %H:%M")
+
+        currentDate = datetime.datetime.today()
+        
+        if dt <= currentDate:
+            speak('Given date should be greater than todays date')
+        else:
+            speak('Tell a summary for meeting : ')
+            summary = recordAudio()
+            create_event(dt, summary)
+            speak('Meeting scheduled successfully')
+        
 
     if "check for any meeting scheduled" in data:
         events = list_events()
