@@ -96,6 +96,7 @@ def jarvis(data):
 
         dt_string = dt_string + ' ' + t
         dt = datetime.datetime.strptime(dt_string,"%d/%m/%Y %H:%M")
+        print(dt)
 
         currentDate = datetime.datetime.today()
         
@@ -121,7 +122,7 @@ def jarvis(data):
 
     
 # initialization
-time.sleep(1)
+
 greet()
 speak("Hi Prathamesh, what can I do for you?")
 while 1:

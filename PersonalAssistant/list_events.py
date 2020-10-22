@@ -15,9 +15,12 @@ def list_events():
    if not events:
        print('No upcoming events found.')
    for event in events:
-       start = event['start'].get('dateTime', event['start'].get('date'))
+       start = event['start'].get('dateTime')
+       print(start)
+       
        print(start, event['summary'])
        print(event.get('id'))
+       
        if start == 2020-10-19:
           print('badiya')
        else:
