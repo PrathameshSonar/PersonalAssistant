@@ -13,6 +13,9 @@ from send_mail import send_mail
 from inbox import get_inbox
 from list_events import list_events
 from create_event import create_event
+from file_manager import getName
+from file_manager import setName
+
 
 
 def speak(audioString):
@@ -117,14 +120,23 @@ def jarvis(data):
            print(start, event['summary'])
 
     if "shutdown" in data:
-            speak("shutting down")
-            os.system('shutdown -s')
+        speak("shutting down")
+        os.system('shutdown -s')
+
+    if "change name" in data:
+        speak("tell a new name")
+        name = recordAudio()
+        if name :
+            setName(name)
+            speak("name changed successfully, i will remember your name")
+        
 
     
 # initialization
 
 greet()
-speak("Hi Prathamesh, what can I do for you?")
+name = getName()
+speak("Hi "+ name + ", what can I do for you?")
 while 1:
     data = recordAudio()
     jarvis(data)
