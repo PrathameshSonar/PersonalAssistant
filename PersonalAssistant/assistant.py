@@ -122,12 +122,12 @@ def jarvis(data):
         speak("shutting down")
         os.system('shutdown -s')
 
-    elif "change name" in data:
+    elif "change name" in data or "name change" in data:
         speak("tell a new name")
         name = recordAudio()
         if name :
             setName(name)
-            speak("name changed successfully, i will remember your name")
+            speak(f"okay, i will remember that {name}")
 
     elif 'open youtube' in data or "open video online" in data:
             webbrowser.open("www.youtube.com")
@@ -186,6 +186,22 @@ def jarvis(data):
     elif "open notepad" in data or "notepad" in data:
         speak("opening notepad")
         call(["notepad.exe"])
+
+    elif "search for" in data and 'youtube' not in data:
+        search_term = data.split("for")[-1]
+        url = f"https://google.com/search?q={search_term}"
+        webbrowser.get().open(url)
+        speak(f'Here is what I found for {search_term} on google')
+
+    elif "youtube" in data:
+        search_term = data.split("for")[-1]
+        url = f"https://www.youtube.com/results?search_query={search_term}"
+        webbrowser.get().open(url)
+        speak(f'Here is what I found for {search_term}')
+
+        
+
+
         
         
         
