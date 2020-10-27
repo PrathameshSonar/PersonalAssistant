@@ -15,7 +15,8 @@ from list_events import list_events
 from create_event import create_event
 from file_manager import getName
 from file_manager import setName
-
+#from finan import get_data
+#from finance import get_stock
 
 
 def speak(audioString):
@@ -129,6 +130,14 @@ def jarvis(data):
         if name :
             setName(name)
             speak("name changed successfully, i will remember your name")
+
+    #if "show yahoo stocks":
+        #get_data("UU.L")
+
+    #if "compare stocks" in data:
+        #get_stocks()
+        
+        
         
 
     

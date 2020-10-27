@@ -9,7 +9,7 @@ from datetime import datetime
 START_DATE='28-01-2015'
 END_DATE=str(datetime.now().strftime('%d-%m-%y'))
 
-print(END_DATE)
+
 
 UK_STOCK = 'UU.L'
 USA_STOCK='AMZN'
@@ -20,7 +20,10 @@ def get_stats(stock_data):
 	'short_mean': np.mean(stock_data.tail(20)),
 	'long_mean': np.mean(stock_data.tail(500)),
 	'short_rolling': stock_data.rolling(window=20).mean(),
-	'long_rolling': stock_data.rolling(window=200).mean()	
+	'long_rolling': stock_data.rolling(window=200).mean()
+	
+	
+	
 	}
 
 def create_plot(stock_data, ticker):
@@ -48,7 +51,10 @@ def clean_data(stock_data, col):
 
 def get_data(ticker):
 	try:
-		stock_data = data.DataReader(ticker, 'yahoo', START_DATE, END_DATE)
+		stock_data = data.DataReader(ticker,
+			                        'yahoo',
+			  						START_DATE,
+									END_DATE)
 
 		adj_close = clean_data(stock_data,'Adj Close')
 		create_plot(adj_close,ticker)
@@ -57,5 +63,10 @@ def get_data(ticker):
 		print('No data found for {t}'.format(t=ticker))
 
 
-get_data(UK_STOCK)
+
+if __name__ ==  "__main__":
+	get_data(UK_STOCK)
+     
+    
+  
 	
