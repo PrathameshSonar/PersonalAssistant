@@ -9,12 +9,14 @@ import time
 import datetime
 import os
 from gtts import gTTS
+import webbrowser
 from send_mail import send_mail
 from inbox import get_inbox
 from list_events import list_events
 from create_event import create_event
 from file_manager import getName
 from file_manager import setName
+from subprocess import call
 #from finan import get_data
 #from finance import get_stock
 
@@ -48,7 +50,7 @@ def recordAudio():
         except sr.RequestError as e:
             print("Could not request results from Google Speech Recognition service; {0}".format(e))
 
-        return data
+        return data.lower()
 
 def greet():
     hour = int(datetime.datetime.now().hour)
@@ -65,19 +67,15 @@ def greet():
 
 
 def jarvis(data):
-    
-    
-    if "how are you" in data:
-        speak("I am fine")
-
+        
     if "what time is it" in data:
         speak(ctime())
 
-    if "exit" in data or "close" in data:
+    elif "exit" in data or "close" in data or "goodbye" in data:
         speak('I feeling very sweet after meeting with you but you are going! i am very sad')
         exit()
 
-    if "send mail" in data or "email" in data:
+    elif "send mail" in data or "email" in data:
         speak('Enter a Email ID of User who u want to send mail')
         email_id = input('\n>>')
         speak('Tell a subject for mail : ')
@@ -87,11 +85,11 @@ def jarvis(data):
         send_mail(text=email_body,subject=email_subject,to_emails=[email_id])
         speak('Mail sent successfully')
 
-    if "check for any new mail" in data:
+    elif "check for any new mail" in data:
         new_mail = get_inbox()
         speak('you have mail from ' + new_mail)
 
-    if "schedule meeting" in data:
+    elif "schedule meeting" in data:
         speak('Enter date in DD/MM/YYYY format')
         dt_string = input('\nDate (DD/MM/YYYY): ')            
         
@@ -113,23 +111,87 @@ def jarvis(data):
             speak('Meeting scheduled successfully')
         
 
-    if "check for any meeting scheduled" in data:
+    elif "check for any meeting scheduled" in data:
         events = list_events()
         for event in events:
            start = event['start'].get('dateTime', event['start'].get('date'))
            speak('you have meeting scheduled on ' + start)
            print(start, event['summary'])
 
-    if "shutdown" in data:
+    elif "shutdown" in data:
         speak("shutting down")
         os.system('shutdown -s')
 
-    if "change name" in data:
+    elif "change name" in data:
         speak("tell a new name")
         name = recordAudio()
         if name :
             setName(name)
             speak("name changed successfully, i will remember your name")
+
+    elif 'open youtube' in data or "open video online" in data:
+            webbrowser.open("www.youtube.com")
+            speak("opening youtube")
+            
+    elif 'open github' in data:
+            webbrowser.open("https://www.github.com")
+            speak("opening github")
+
+    elif 'open facebook' in data:
+            webbrowser.open("https://www.facebook.com")
+            speak("opening facebook")
+            
+    elif 'open instagram' in data:
+            webbrowser.open("https://www.instagram.com")
+            speak("opening instagram")
+            
+    elif 'open google' in data:
+            webbrowser.open("https://www.google.com")
+            speak("opening google")
+            
+    elif 'open yahoo' in data:
+            webbrowser.open("https://www.yahoo.com")
+            speak("opening yahoo")
+            
+    elif 'open amazon' in data or 'shop online' in data:
+            webbrowser.open("https://www.amazon.com")
+            speak("opening amazon")
+
+    elif 'open flipkart' in data:
+            webbrowser.open("https://www.flipkart.com")
+            speak("opening flipkart")
+
+    elif "what\'s up" in data or 'how are you' in data:
+            stMsgs = ['Just doing my thing!', 'I am fine!', 'Nice!', 'I am nice and full of energy','i am okey ! How are you']
+            ans_q = random.choice(stMsgs)
+            speak(ans_q)  
+            user_reply = recordAudio()
+            if 'fine' in user_reply or 'okay' in user_reply:
+                speak('okay..')  
+            elif 'not' in user_reply or 'sad' in user_reply or 'upset' in user_reply:
+                speak('oh sorry..')
+
+    elif "who are you" in data or "about you" in data or "your details" in data:
+            speak('i am your assistant')
+
+    elif "hey buddy" in data or "hello buddy" in data:
+        name = getName()
+        speak('Hello '+ name + ' How may i help you')
+
+    elif "open calculator" in data or "calculator" in data:
+        speak("opening calculator")
+        call(["calc.exe"])
+        
+
+    elif "open notepad" in data or "notepad" in data:
+        speak("opening notepad")
+        call(["notepad.exe"])
+        
+        
+        
+        
+        
+
 
     #if "show yahoo stocks":
         #get_data("UU.L")
