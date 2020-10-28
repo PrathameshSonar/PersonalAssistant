@@ -18,6 +18,7 @@ from file_manager import getName
 from file_manager import setName
 from subprocess import call
 import subprocess
+import psutil
 #from finan import get_data
 #from finance import get_stock
 
@@ -217,6 +218,13 @@ def jarvis(data):
         url = f"https://www.google.com/maps/place/{search_term}"
         webbrowser.get().open(url)
         speak(f"Here is what I found for {search_term} on google map")
+
+    elif "check battery status" in data:
+        battery = psutil.sensors_battery()
+        plugged = battery.power_plugged
+        percent = str(battery.percent)
+        plugged = "Plugged In" if plugged else "Not Plugged In"
+        speak(percent+'% available and system is '+plugged)
         
 
 
