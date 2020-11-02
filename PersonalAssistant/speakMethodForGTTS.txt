@@ -1,0 +1,33 @@
+print(audioString)
+    tts = gTTS(text=audioString, lang="en")
+    r = random.randint(1, 20000000)
+    audio_file = "audio" + str(r) + ".mp3"
+    tts.save(audio_file)
+    playsound.playsound(audio_file)
+    os.remove(audio_file)
+
+
+
+
+
+
+
+
+
+
+def tkinter_input(prompt=""):
+    root = tk.Tk()
+    tk.Label(root, text=prompt).pack()
+    entry = tk.Entry(root)
+    entry.pack()
+    result = None
+    def callback(event):
+        nonlocal result
+        result = entry.get()
+        root.destroy()
+    entry.bind("<Return>", callback)
+    root.mainloop()
+    return result
+
+tkinter_input('Enter Email ID')
+
