@@ -12,3 +12,5 @@ Libraries required :
     
 
 Run a assistant.py for execuation of code
+
+Run cal_setup.py for setting up connection with google calender
