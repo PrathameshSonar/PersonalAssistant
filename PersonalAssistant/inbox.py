@@ -2,8 +2,9 @@ import imaplib
 import email
 
 host = 'imap.gmail.com'
-username = 'mailmepms@gmail.com'
-password = 'rog@531gt'
+#assign username and password to the following variables
+username = ''
+password = ''
 
 
 def get_inbox():
