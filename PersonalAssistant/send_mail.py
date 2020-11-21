@@ -3,8 +3,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 # environment varialbles
-username = 'mailmepms@gmail.com'
-password = 'rog@531gt'
+#assign username and password to following variable
+username = ''
+password = ''
 
 def send_mail(text='Email Body', subject='Hello World', from_email='PMS <mailmepms@gmail.com>',  to_emails=None, html=None):
     assert isinstance(to_emails, list)
